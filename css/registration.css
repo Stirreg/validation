@@ -1,0 +1,16 @@
+@media (min-width: 33em) {
+    .Form__Hint {
+        margin-top: 9px;
+    }
+}
+
+.Form__Label {
+    text-align: left;
+    margin-top: 6px;
+}
+
+@media (min-width: 33em) {
+    .Form__Label {
+        text-align: right;
+    }
+}

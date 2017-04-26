@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Validation documentation</title>
+    <link rel="stylesheet" href="css/printdeal-fr-responsive-1.64.0.css">
+    <link rel="stylesheet" href="css/registration.css">
+    <link rel="stylesheet" href="css/validation-documentation.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+    <script src="https://s3-eu-west-1.amazonaws.com/printdealcdn/js/printdeal-1.53.0.js"></script>
+    <script src="validation/validation.js"></script>
+    <script src="validation/input-validation.js"></script>
+</head>
+
+<body>
+    <div class="page-wrap">
+        <main role="main" id="main-content">
+            <section class="Panel Panel--IsResponsive Island">
+                <div class="row">
+                    <div class="init-12 small-8 medium-12 cols">
+                        <h1 class="h h1">Validation documentation</h1>
+                        <p class="Island">Add these scripts at the bottom of the body:</p>
+                        <div class="Panel Island">
+<pre><code>&lt;script src="validation/validation.js"&gt;&lt;/script&gt;
+&lt;script src="validation/input-validation.js"&gt;&lt;/script&gt;</code></pre>
+                        </div>
+                        <p class="Island">Enable validation on your form by adding the following script after the relevant dom elements have loaded (replace "formId" with an actual form id): </p>
+                        <div class="Panel Island">
+<pre><code>var form = document.getElementById('formId');
+var validation = new Validation(form);</code></pre>
+                        </div>
+                        <h2 class="h h2 Island">Index</h2>
+                        <ul>
+                            <li>
+                                <a href="#configuration-options">Configuration options</a>
+                            </li>
+                            <li>
+                                <a href="validation-examples">Validation examples</a>
+                                <ul>
+                                    <li>
+                                        <a href="#plain-example">Plain example</a>
+                                    </li>
+                                    <li>
+                                        <a href="#required-example">Required example</a>
+                                    </li>
+                                    <li>
+                                        <a href="#select-example">Select example</a>
+                                    </li>
+                                    <li>
+                                        <a href="#form-hints-example">Form hints example</a>
+                                    </li>
+                                    <li>
+                                        <a href="#no-icons-example">No icons example</a>
+                                    </li>
+                                    <li>
+                                        <a href="#no-auto-validation-example">No auto validation example</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="Panel Panel--IsResponsive Island">
+                <div class="row">
+                    <div class="init-12 small-8 medium-12 cols">
+                        <header class="Island">
+                            <h1 id="configuration-options" class="h h1">Configuration options</h1>
+                        </header>
+                        <table class="Island">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>boolean</td>
+                                    <td>auto</td>
+                                    <td>true</td>
+                                </tr>
+                                <tr>
+                                    <td>boolean</td>
+                                    <td>showIcons</td>
+                                    <td>true</td>
+                                </tr>
+                                <tr>
+                                    <td>boolean</td>
+                                    <td>showHints</td>
+                                    <td>this.$hint.length</td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>successIcon</td>
+                                    <td>'&lt;i class="Overlay Overlay--Right ValidationTargetIcon ValidationTargetIcon--Success Overlay--CenterY Icon Icon--Check--Green" aria-hidden="true"&gt;&lt;/i&gt;'</td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>errorIcon</td>
+                                    <td>'&lt;i class="Overlay Overlay--Right ValidationTargetIcon ValidationTargetIcon--Error Overlay--CenterY Icon Icon--CrossCircle--Red" aria-hidden="true"&gt;&lt;/i&gt;'</td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>wrap</td>
+                                    <td>'&lt;div class="HasOverlay"&gt;&lt;/div&gt;'</td>
+                                </tr>
+                                <tr>
+                                    <td>boolean</td>
+                                    <td>hasErrorHint</td>
+                                    <td>this.$input.is('[data-validation-error]')</td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>defaultHint</td>
+                                    <td>''</td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>errorHint</td>
+                                    <td>''</td>
+                                </tr>
+                                <tr>
+                                    <td>boolean</td>
+                                    <td>hasDefaultHint</td>
+                                    <td>this.$input.is('[data-validation-default]')</td>
+                                </tr>
+                                <tr>
+                                    <td>boolean</td>
+                                    <td>hasDataConfig</td>
+                                    <td>this.$input.is('[data-validation-config]')</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="Panel Panel--IsResponsive Island">
+                <div class="row">
+                    <div class="init-12 small-8 medium-12 cols">
+                        <header class="Island">
+                            <h1 id="validation-examples" class="h h1">Validation examples</h1>
+                        </header>
+                        <article>
+                            <h2 id="plain-example" class="h h2 Island">Plain example</h2>
+                            <p class="Island">Basic validation does not ever show error but shows success when a user has entered something. This is to provide positive feedback.</p>
+                            <form id="form_example_plain" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_plain" class="Form__Hint">Enter anything to check:</label>
+                                    </div>
+                                    <div class="init-12 small-9 medium-9 cols">
+                                        <input id="input_example_plain" type="text">
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExamplePlain = document.getElementById('form_example_plain');
+                                var validationPlain = new Validation(formExamplePlain);
+                            </script>
+                        </article>
+                        <hr>
+                        <article>
+                            <h2 id="required-example" class="h h2 Island">Required example</h2>
+                            <p class="Island">Add the attribute "required" to the inputs that are mandatory. Checks if the input is has a value (after trim).</p>
+                            <p class="Island">
+                                <code class="Mark--LightGray">required</code>
+                            </p>
+                            <form id="form_example_required" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_required" class="Form__Hint">Enter anything or leave empty to check:</label>
+                                    </div>
+                                    <div class="init-12 small-9 medium-9 cols">
+                                        <input id="input_example_required" type="text" required>
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExampleRequired = document.getElementById('form_example_required');
+                                var validationRequired = new Validation(formExampleRequired);
+                            </script>
+                        </article>
+                        <hr>
+                        <article>
+                            <h2 id="pattern-example" class="h h2 Island">Pattern example</h2>
+                            <p class="Island">Add a pattern attribute to match against a regular expression.</p>
+                            <p class="Island">
+                                <code class="Mark--LightGray">pattern="^1234AB$"</code>
+                            </p>
+                            <form id="form_example_pattern" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_pattern" class="Form__Hint">Enter 1234AB or 1234 to check:</label>
+                                    </div>
+                                    <div class="init-12 small-9 medium-9 cols">
+                                        <input id="input_example_pattern" type="text" pattern="^1234AB$">
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExamplePattern = document.getElementById('form_example_pattern');
+                                var validationPattern = new Validation(formExamplePattern);
+                            </script>
+                        </article>
+                        <hr>
+                        <article>
+                            <h2 id="select-example" class="h h2 Island">Select example</h2>
+                            <p class="Island">Select inputs act similar to plain inputs, if user changes or blurs the input it shows as success to provide positive feedback.</p>
+                            <form id="form_example_select" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_select" class="Form__Hint">Select anything to check:</label>
+                                    </div>
+                                    <div class="init-12 small-9 medium-9 cols">
+                                        <select id="input_example_select">
+											<option value="foo" selected>Foo</option>
+											<option value="bar">Bar</option>
+										</select>
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExampleSelect = document.getElementById('form_example_select');
+                                var validationSelect = new Validation(formExampleSelect);
+                            </script>
+                        </article>
+                        <hr>
+                        <article>
+                            <h2 id="form-hints-example" class="h h2 Island">Form hints example</h2>
+                            <p class="Island">A required validation with default and error hints.</p>
+                            <p class="Island">Uses <code class="Mark--LightGray">data-validation-default="Default hint."</code> and <code class="Mark--LightGray">data-validation-error="Error hint."</code> attributes on the input and <code class="Mark--LightGray">data-validation-hint-for="input_example_hints"</code>                                on the form hint.</p>
+                            <form id="form_example_hints" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_hints" class="Form__Hint">Enter anything or leave empty to check:</label>
+                                    </div>
+                                    <div class="init-12 small-6 medium-6 cols">
+                                        <input id="input_example_hints" type="text" data-validation-default="Default hint." data-validation-error="Error hint." required>
+                                    </div>
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <small class="Form__Hint" data-validation-hint-for="input_example_hints">Default hint.</small>
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExampleHints = document.getElementById('form_example_hints');
+                                var validationHints = new Validation(formExampleHints);
+                            </script>
+                        </article>
+                        <hr>
+                        <article>
+                            <h2 id="no-icons-example" class="h h2 Island">No icons example</h2>
+                            <p class="Island">A required validation without icons.</p>
+                            <p class="Island">
+                                <code class="Mark--LightGray">data-validation-config='{"showIcons":false}'</code>
+                            </p>
+                            <form id="form_example_no_icons" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_no_icons" class="Form__Hint">Enter anything or leave empty to check:</label>
+                                    </div>
+                                    <div class="init-12 small-9 medium-9 cols">
+                                        <input id="input_example_no_icons" type="text" data-validation-config='{"showIcons":false}' required>
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExampleNoIcons = document.getElementById('form_example_no_icons');
+                                var validationNoIcons = new Validation(formExampleNoIcons);
+                            </script>
+                        </article>
+                        <hr>
+                        <article>
+                            <h2 id="no-auto-validation-example" class="h h2 Island">No auto validation example</h2>
+                            <p class="Island">A required validation that does not automatically validate. In this case a button is used to validate.</p>
+                            <p class="Island">
+                                <code class="Mark--LightGray">data-validation-config='{"auto":false}'</code>
+                            </p>
+                            <div class="Panel Island">
+                                <pre>
+<code>var formExampleNoAuto = document.getElementById('form_example_no_auto');
+var validationNoAuto = new Validation(formExampleNoAuto);
+$('#button_no_auto').on('click', function (e) {
+    e.preventDefault();
+    document.getElementById('input_example_no_auto').inputValidation.validateRequired();
+});</code>
+</pre>
+                            </div>
+                            <form id="form_example_no_auto" action="#">
+                                <div class="row">
+                                    <div class="init-12 small-3 medium-3 cols">
+                                        <label for="input_example_no_auto" class="Form__Hint">Click button to check if empty:</label>
+                                    </div>
+                                    <div class="init-12 small-9 medium-9 cols">
+                                        <input id="input_example_no_auto" type="text" data-validation-config='{"auto":false}' required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="init-12 small-9 medium-9 small-offset-3 medium-offset-3 cols">
+                                        <button id="button_no_auto" class="Btn">Click me!</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                var formExampleNoAuto = document.getElementById('form_example_no_auto');
+                                var validationNoAuto = new Validation(formExampleNoAuto);
+                                $('#button_no_auto').on('click', function(e) {
+                                    e.preventDefault();
+                                    document.getElementById('input_example_no_auto').inputValidation.validateRequired();
+                                });
+                            </script>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    </div>
+</body>
+
+</html>

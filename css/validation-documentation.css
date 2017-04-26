@@ -1,0 +1,15 @@
+body {
+	padding-top: 18px;
+}
+
+ul {
+    list-style: disc inside;
+}
+
+li {
+    padding-left: 10px;
+}
+
+.Mark--LightGray {
+      background-color: #E5E5E5;
+}
